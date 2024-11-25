@@ -1,29 +1,29 @@
- // Store for managing student data
+
  let students = JSON.parse(localStorage.getItem('students')) || [];
  let editingIndex = -1;
 
- // Theme management
+
  const themeToggle = document.getElementById('themeToggle');
  const html = document.documentElement;
 
- // Load saved theme preference
+
  const savedTheme = localStorage.getItem('theme') || 'light';
  html.setAttribute('data-theme', savedTheme);
  themeToggle.checked = savedTheme === 'dark';
 
- // Theme toggle handler
+
  themeToggle.addEventListener('change', () => {
      const newTheme = themeToggle.checked ? 'dark' : 'light';
      html.setAttribute('data-theme', newTheme);
      localStorage.setItem('theme', newTheme);
  });
 
- // DOM Elements
+
  const form = document.getElementById('studentForm');
  const tableBody = document.getElementById('studentTableBody');
  const submitBtn = document.getElementById('submitBtn');
 
- // Validation functions
+ 
  const validators = {
      studentName: (value) => {
          const nameRegex = /^[a-zA-Z\s]{2,30}$/;
@@ -43,7 +43,7 @@
      }
  };
 
- // Validate all fields
+
  function validateForm() {
      let isValid = true;
      ['studentName', 'studentId', 'email', 'contact'].forEach(field => {
@@ -56,7 +56,7 @@
      return isValid;
  }
 
- // Render students table
+ 
  function renderTable() {
      tableBody.innerHTML = students.map((student, index) => `
          <tr>
@@ -72,12 +72,12 @@
      `).join('');
  }
 
- // Save to localStorage
+
  function saveToStorage() {
      localStorage.setItem('students', JSON.stringify(students));
  }
 
- // Add or update student
+
  form.addEventListener('submit', (e) => {
      e.preventDefault();
      if (!validateForm()) return;
@@ -102,7 +102,7 @@
      form.reset();
  });
 
- // Edit student
+
  function editStudent(index) {
      const student = students[index];
      document.getElementById('studentName').value = student.name;
@@ -113,7 +113,7 @@
      submitBtn.textContent = 'Update Student';
  }
 
- // Delete student
+ 
  function deleteStudent(index) {
      if (confirm('Are you sure you want to delete this student?')) {
          students.splice(index, 1);
@@ -122,5 +122,5 @@
      }
  }
 
- // Initial render
+
  renderTable();
